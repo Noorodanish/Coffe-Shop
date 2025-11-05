@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:wght@400;500;600;700&display=swap');
+
+    :root {
+      --white-color: #fff;
+      --dark-color: #252525;
+      --primary-color: #3b141c;
+      --secondary-color: #f3961c;
+      --font-size-xl: 2rem;
+      --font-size-xxl: 2.3rem;
+      --font-size-m: 1.12rem;
+      --border-radius-m: 30px;
+      --site-max-width: 1300px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: var(--primary-color);
+      color: var(--white-color);
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--primary-color);
+      position: fixed;
+      width: 100%;
+      z-index: 20;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      max-width: var(--site-max-width);
+      margin: 0 auto;
+      position: relative;
+      z-index: 25;
+    }
+
+    .logo-text {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      color: var(--white-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-text img {
+      width: 40px;
+      height: 40px;
+      margin-right: 8px;
+      border-radius: 50%;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 10px;
+      list-style: none;
+      transition: left 0.3s ease;
+    }
+
+    .nav-link {
+      color: var(--white-color);
+      padding: 10px 18px;
+      background: var(--secondary-color);
+      border-radius: var(--border-radius-m);
+      text-decoration: none;
+      font-size: var(--font-size-m);
+      transition: 0.3s ease;
+    }
+
+    .nav-link:hover {
+      background: var(--white-color);
+      color: var(--primary-color);
+    }
+
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 100px;
+    }
+
+    .section-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--site-max-width);
+      width: 100%;
+      padding: 0 20px;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .hero-image-wrapper {
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .hero-image-wrapper img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .hero-details {
+      flex: 1;
+    }
+
+    .title {
+      font-size: var(--font-size-xxl);
+      color: var(--secondary-color);
+      font-family: "Miniver", cursive;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      max-width: 70%;
+    }
+
+    .description {
+      margin: 24px 0 40px;
+      font-size: var(--font-size-m);
+      max-width: 70%;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 23px;
+    }
+
+    .button {
+      padding: 10px 26px;
+      border: 2px solid transparent;
+      color: var(--primary-color);
+      border-radius: var(--border-radius-m);
+      background: var(--secondary-color);
+      font-weight: 500;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .button:hover {
+      color: var(--white-color);
+      border-color: var(--white-color);
+      background: transparent;
+    }
+
+    #menu-open-button,
+    #menu-close-button {
+      display: none;
+    }
+
+    /* ---------- ABOUT SECTION ---------- */
+    .about-section {
+      background: var(--white-color);
+      color: var(--dark-color);
+      padding: 100px 20px;
+    }
+
+    .about-section .section-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--site-max-width);
+      margin: 0 auto;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .about-image-wrapper {
+      flex: 1;
+      max-width: 400px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-image-wrapper img {
+      width: 350px;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid var(--secondary-color);
+      display: block;
+    }
+
+    .about-details {
+      flex: 1;
+    }
+
+    .about-details h2 {
+      font-size: var(--font-size-xl);
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    .about-details .text {
+      font-size: var(--font-size-m);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .social-link-list {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-link {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    .social-link:hover {
+      color: var(--secondary-color);
+    }
+
+    /* ---------- MENU SECTION ---------- */
+    .menu {
+      display: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      background: #111;
+      padding: 80px 10%;
+      text-align: center;
+    }
+
+    .menu.show {
+      display: block;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .section-title {
+      font-family: "Miniver", cursive;
+      color: var(--secondary-color);
+      font-size: 2.3rem;
+      margin-bottom: 40px;
+    }
+
+    .menu-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .menu-item {
+      background: #222;
+      border-radius: 20px;
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 200px;
+      border-radius: 15px;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .menu-item h3 {
+      color: var(--secondary-color);
+    }
+
+    .menu-item span {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .close-menu-btn {
+      margin-top: 40px;
+      padding: 10px 30px;
+      background: var(--secondary-color);
+      border: none;
+      border-radius: var(--border-radius-m);
+      color: var(--white-color);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-menu-btn:hover {
+      background: var(--white-color);
+      color: var(--primary-color);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      #menu-open-button {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--secondary-color);
+        color: var(--white-color);
+        border: none;
+        padding: 10px 15px;
+        border-radius: var(--border-radius-m);
+        font-size: 1.5rem;
+        z-index: 30;
+      }
+
+      #menu-close-button {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var(--secondary-color);
+        color: var(--white-color);
+        border: none;
+        padding: 10px 15px;
+        border-radius: var(--border-radius-m);
+        font-size: 1.5rem;
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 260px;
+        height: 100vh;
+        background: var(--white-color);
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 20px;
+        transition: left 0.3s ease;
+        z-index: 50;
+      }
+
+      body.show-mobile-menu .nav-menu {
+        left: 0;
+      }
+
+      .nav-link {
+        color: var(--dark-color);
+        margin-top: 17px;
+      }
+
+      body.show-mobile-menu::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        backdrop-filter: blur(6px);
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 10;
+      }
+
+      .hero-section .section-content {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .hero-section .hero-image-wrapper {
+        max-width: 270px;
+        margin: 0 auto;
+      }
+
+      .hero-section .hero-details :is(.subtitle, .description) {
+        max-width: 100%;
+      }
+
+      .buttons {
+        justify-content: center;
+      }
+
+      .about-section .section-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-image-wrapper img {
+        width: 250px;
+        height: 250px;
+      }
+
+      .social-link-list {
+        justify-content: center;
+      }
+    }
+
+    .gallery-section {
+  background: var(--white-color);
+  color: var(--dark-color);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: var(--site-max-width);
+  margin: 0 auto;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.comment-section {
+  background: var(--white-color);
+  color: var(--dark-color);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.comment-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px rgba(243, 150, 28, 0.4);
+}
+
+.comment-form .button {
+  background: var(--secondary-color);
+  color: var(--white-color);
+  border: none;
+  padding: 12px;
+  border-radius: var(--border-radius-m);
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.comment-form .button:hover {
+  background: var(--primary-color);
+}
+
+.footer {
+  background: var(--primary-color);
+  color: var(--white-color);
+  padding: 60px 20px 30px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: "Miniver", cursive;
+  font-size: var(--font-size-xxl);
+  color: var(--secondary-color);
+}
+
+.footer-desc {
+  margin-top: 10px;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.footer-contact {
+  margin-top: 25px;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.footer-contact i {
+  color: var(--secondary-color);
+  margin-right: 8px;
+}
+
+.footer-social {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-social a {
+  color: var(--white-color);
+  font-size: 1.4rem;
+  transition: 0.3s;
+}
+
+.footer-social a:hover {
+  color: var(--secondary-color);
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 15px;
+}
+
+.cart-section {
+  background: var(--white-color);
+  color: var(--dark-color);
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 30px auto;
+  max-width: 600px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f6f6f6;
+  padding: 12px 18px;
+  border-radius: 10px;
+}
+
+.cart-item span {
+  font-weight: 500;
+}
+
+.cart-total {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.cart-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.add-to-cart {
+  margin-top: 10px;
+  background: var(--secondary-color);
+  color: var(--white-color);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-to-cart:hover {
+  background: var(--primary-color);
+}
+
+
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <h2 class="logo-text">
+        <img src="https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg" alt="Logo" />
+        Coffee Shop
+      </h2>
+      <button id="menu-open-button"><i class="fas fa-bars"></i></button>
+      <ul class="nav-menu">
+        <button id="menu-close-button"><i class="fas fa-times"></i></button>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#" id="show-menu-btn" class="nav-link">Menu</a></li>
+        <li><a href="#" class="nav-link">Gallery</a></li>
+        <li><a href="#" class="nav-link">Suggestions</a></li>
+        <li><a href="#" class="nav-link">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="section-content">
+        <div class="hero-image-wrapper">
+          <img src="https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg" alt="Coffee Cup" />
+        </div>
+        <div class="hero-details">
+          <h2 class="title">Best Coffee</h2>
+          <h3 class="subtitle">Make your day great with our special coffee.</h3>
+          <p class="description">Welcome to our coffee paradise, where every bean tells a story and every cup sparks joy.</p>
+          <div class="buttons">
+            <a href="#" class="button">Order Now</a>
+            <a href="#" class="button">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="section-content">
+        <div class="about-image-wrapper">
+          <img src="https://tse4.mm.bing.net/th/id/OIP.nzvQ7b9f6ELkwXVQXQNtRgHaE6?rs=1&pid=ImgDetMain" alt="About Image">
+        </div>
+        <div class="about-details">
+          <h2>About Us</h2>
+          <p class="text">
+            At Coffee House in Berndorf, Germany, we pride ourselves on being a go-to destination for coffee lovers and relaxation seekers alike.
+          </p>
+          <div class="social-link-list">
+            <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="menu">
+      <h2 class="section-title">Our Menu</h2>
+      <div class="menu-container">
+
+        <div class="menu-item">
+          <img src="https://cafe1820.com/wp-content/uploads/2020/03/espresso-P3VSFDV-scaled.jpg" alt="Espresso">
+          <h3>Espresso</h3>
+          <p>Rich and bold coffee shot</p>
+          <span>100 Rs</span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="https://tse1.mm.bing.net/th/id/OIP.bNqdlV-Tc08KbZ4LPcH4UAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Cappuccino">
+          <h3>Cappuccino</h3>
+          <p>With creamy frothy milk</p>
+          <span>80 Rs</span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="https://th.bing.com/th/id/R.b26711d22a3ffcd7b507a2458df58f87?rik=GllIDNCJfJJnRg&riu=http%3a%2f%2fwww.publicdomainpictures.net%2fpictures%2f10000%2fvelka%2fcoffee-latte-11284391087Ksg2.jpg&ehk=ZK1Ws%2frVrxBOHFCYF4Eqqc%2fncGDOhsvbck6d0jtjsVk%3d&risl=&pid=ImgRaw&r=0" alt="Latte">
+          <h3>Latte</h3>
+          <p>Soft and smooth flavor</p>
+          <span>60 Rs</span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+
+            <div class="menu-item">
+          <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2023/07/ginger-milk-tea-adrak-chai-recipe.jpg" alt="Espresso">
+          <h3>Milk Tea</h3>
+          <p>Kadak Tea</p>
+          <span>30 Rs</span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+
+
+            <div class="menu-item">
+          <img src="https://www.funfactsabout.com/wp-content/uploads/2022/11/coffee-fun-facts.jpg" alt="Espresso">
+          <h3>Cardamom Tea</h3>
+          <p> Warm flavour</p>
+          <span>60 Rs</span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+
+
+
+            <div class="menu-item">
+          <img src="https://th.bing.com/th?id=OIF.6zQ%2bjbere84%2bogHUEYeu1Q&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Espresso">
+          <h3>Black Coffee</h3>
+          <p>Rich and bold coffee shot</p>
+          <span>70 Rs </span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+
+
+
+
+            <div class="menu-item">
+          <img src="https://rachnas-kitchen.com/wp-content/uploads/2017/07/cold-coffee-2.jpg" alt="Espresso">
+          <h3>Cold Coffee</h3>
+          <p>Rich and flavor coffee shot</p>
+          <span>110 Rs</span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+
+
+
+            <div class="menu-item">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.qP0ekuWBmYsrpppNwtfVkQHaGP?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Espresso">
+          <h3>Tea Bag Tea</h3>
+          <p>Bold  shot</p>
+          <span>30</span>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+
+      </div>
+      <button class="close-menu-btn" id="close-menu-btn">Close Menu</button>
+    </section>
+  </main>
+
+
+  <section id="cart" class="cart-section">
+  <h2 class="section-title">Your Cart</h2>
+  <div class="cart-items"></div>
+  <div class="cart-total">
+    <h3>Total: <span id="cart-total">0</span> Rs</h3>
+  </div>
+  <div class="cart-buttons">
+    <button id="clear-cart" class="button">Clear Cart</button>
+    <button id="checkout" class="button">Checkout</button>
+  </div>
+</section>
+
+
+  <section id="gallery" class="gallery-section">
+  <h2 class="section-title">Our Gallery</h2>
+  <div class="gallery-grid">
+    <img src="https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg" alt="Coffee 1">
+    <img src="https://images.pexels.com/photos/977876/pexels-photo-977876.jpeg" alt="Coffee 2">
+    <img src="https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg" alt="Coffee 3">
+    <img src="https://images.pexels.com/photos/414630/pexels-photo-414630.jpeg" alt="Coffee 4">
+    <img src="https://images.pexels.com/photos/434213/pexels-photo-434213.jpeg" alt="Coffee 5">
+    <img src="https://images.pexels.com/photos/374885/pexels-photo-374885.jpeg" alt="Coffee 6">
+        <img src="https://blessedbeyondcrazy.com/wp-content/uploads/2017/09/34353480_m.jpg" alt="Coffee 7">
+        <img src="https://tse1.explicit.bing.net/th/id/OIP.JnryBkYCLWmUJuAx7iBKAAHaHa?w=1000&h=1000&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Coffee 8">
+  </div>
+</section>
+
+
+<section id="comments" class="comment-section">
+  <h2 class="section-title">Leave a Comment</h2>
+  <form class="comment-form">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea rows="5" placeholder="Write your comment..." required></textarea>
+    <button type="submit" class="button">Submit</button>
+  </form>
+</section>
+
+
+
+
+<footer class="footer">
+  <div class="footer-content">
+    <h2 class="footer-logo">Coffee Shop</h2>
+    <p class="footer-desc">Brewing happiness, one cup at a time.</p>
+
+    <div class="footer-contact">
+      <p><i class="fa-solid fa-envelope"></i> coffeeshop@gmail.com</p>
+      <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+      <p><i class="fa-solid fa-location-dot"></i> Connaught Place, New Delhi</p>
+    </div>
+
+    <div class="footer-social">
+      <a href="#"><i class="fa-brands fa-facebook"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
+  </div>
+
+  <p class="footer-bottom">© 2025 Coffee Shop | All Rights Reserved</p>
+</footer>
+
+
+  <script>
+    const openBtn = document.getElementById("menu-open-button");
+    const closeBtn = document.getElementById("menu-close-button");
+    const showMenuBtn = document.getElementById("show-menu-btn");
+    const menuSection = document.getElementById("menu");
+    const closeMenuBtn = document.getElementById("close-menu-btn");
+
+    // Mobile menu open/close
+    openBtn.addEventListener("click", () => {
+      document.body.classList.add("show-mobile-menu");
+      document.body.style.overflow = "hidden";
+    });
+
+    closeBtn.addEventListener("click", () => {
+      document.body.classList.remove("show-mobile-menu");
+      document.body.style.overflow = "";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (document.body.classList.contains("show-mobile-menu") &&
+        !e.target.closest(".nav-menu") &&
+        !e.target.closest("#menu-open-button")) {
+        document.body.classList.remove("show-mobile-menu");
+        document.body.style.overflow = "";
+      }
+    });
+
+    // Show/Hide menu section
+    showMenuBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      menuSection.classList.add("show");
+      window.scrollTo({ top: menuSection.offsetTop - 80, behavior: "smooth" });
+    });
+
+    closeMenuBtn.addEventListener("click", () => {
+      menuSection.classList.remove("show");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+
+   // Cart functionality
+const addToCartButtons = document.querySelectorAll(".add-to-cart");
+const cartContainer = document.querySelector(".cart-items");
+const cartTotalEl = document.getElementById("cart-total");
+const clearCartBtn = document.getElementById("clear-cart");
+let cart = [];
+
+addToCartButtons.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const item = e.target.closest(".menu-item");
+    const name = item.querySelector("h3").textContent;
+    const price = parseInt(item.querySelector("span").textContent);
+    const existingItem = cart.find((i) => i.name === name);
+
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push({ name, price, quantity: 1 });
+    }
+    updateCart();
+  });
+});
+
+function updateCart() {
+  cartContainer.innerHTML = "";
+  let total = 0;
+  cart.forEach((item) => {
+    total += item.price * item.quantity;
+    const div = document.createElement("div");
+    div.classList.add("cart-item");
+    div.innerHTML = `
+      <span>${item.name} x${item.quantity}</span>
+      <span>${item.price * item.quantity} Rs</span>
+    `;
+    cartContainer.appendChild(div);
+  });
+  cartTotalEl.textContent = total;
+}
+
+clearCartBtn.addEventListener("click", () => {
+  cart = [];
+  updateCart();
+});
+
+document.getElementById("checkout").addEventListener("click", () => {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+  } else {
+    alert("Thank you for your order!");
+    cart = [];
+    updateCart();
+  }
+});
+
+
+  </script>
+</body>
+</html>
